@@ -11,6 +11,7 @@ interface BoardContextType {
     onSelectKey: (keyVal: string) => void;
     onDelete: () => void;
     onEnter: () => void;
+    correctWord: string;
 }
 
 interface AttemptType {
@@ -25,13 +26,14 @@ export const AppContext = createContext<BoardContextType>({
     setCurrAttempt: () => {},
     onSelectKey: () => {},
     onDelete: () => {},
-    onEnter: () => {}
+    onEnter: () => {},
+    correctWord: "",
     });
 
 export const Home = () => {
     const [board, setBoard] = useState<BoardDefaultType>(boardDefault);
     const [currAttempt, setCurrAttempt] = useState<AttemptType>({attempt: 0, letterPos: 0});
-
+    const correctWord = "RIGHT";
     const onSelectKey = (keyVal: string) => {
         if(currAttempt.letterPos > 4) return;
         const newBoard = [...board];
@@ -54,7 +56,7 @@ export const Home = () => {
 
     return (
         <div>
-            <AppContext.Provider value={{board, setBoard, currAttempt, setCurrAttempt, onSelectKey: onSelectKey, onDelete, onEnter}}>
+            <AppContext.Provider value={{board, setBoard, currAttempt, setCurrAttempt, onSelectKey: onSelectKey, onDelete, onEnter, correctWord}}>
             <div className="game">
                 <Board />
                 <Keyboard />
