@@ -3,7 +3,7 @@ import { Key } from "./Key";
 import { AppContext } from "../pages/Home";
 
 export const Keyboard = () => {
-    const {onSelectKey, onEnter, onDelete} = useContext(AppContext);
+    const {onSelectKey, onEnter, onDelete, disabledLetters} = useContext(AppContext);
     
     const keys1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
     const keys2 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
@@ -33,12 +33,17 @@ export const Keyboard = () => {
     }, [handleKeyboard])
 
     return <div>
-        <div className="line1">{keys1.map((key) => {return <Key keyVal = {key} bigKey = {false} />})}</div>
-        <div className="line2">{keys2.map((key) => {return <Key keyVal = {key} bigKey = {false}/>})}</div>
+        <div className="line1">{keys1.map((key) => {
+            return <Key keyVal = {key} bigKey = {false} disabled = {disabledLetters.includes(key)}/>
+        })}</div>
+        <div className="line2">{keys2.map((key) => {
+            return <Key keyVal = {key} bigKey = {false} disabled = {disabledLetters.includes(key)}/> 
+            })}</div>
         <div className="line3">
-            <Key keyVal = {"ENTER"} bigKey = {true}/>
-            {keys3.map((key) => {return <Key keyVal = {key} bigKey = {false}/>})}
-            <Key keyVal = {"DELETE"} bigKey = {true}/>
+            <Key keyVal = {"ENTER"} bigKey = {true} disabled = {false}/>
+            {keys3.map((key) => 
+                {return <Key keyVal = {key} bigKey = {false} disabled = {disabledLetters.includes(key)} />})}
+            <Key keyVal = {"DELETE"} bigKey = {true} disabled = {false}/>
         </div>
     </div>
 }

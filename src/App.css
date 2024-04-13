@@ -192,6 +192,10 @@ button {
   background-color: #b49f39;
 }
 
-#error {
+#error   {
+  background-color: #3a393c;
+}
+
+#disabled {
   background-color: #3a393c;
 }
