@@ -1,7 +1,7 @@
 import { useState, createContext, SetStateAction, Dispatch, useEffect } from "react";
 import { Board } from "../components/Board"
 import { Keyboard } from "../components/Keyboard"
-import { BoardDefaultType, boardDefault, generateWordsSet } from "../Words";
+import { BoardDefaultType, boardDefault, generateWordsSet, RandomWord, boardSkeleton } from "../Words";
 import { GameOver } from "../components/GameOver";
 
 interface BoardContextType {
@@ -17,7 +17,7 @@ interface BoardContextType {
     setDisabledLetters: Dispatch<SetStateAction<string[]>>;
     gameOver: GuessType;
     setGameOver: Dispatch<SetStateAction<GuessType>>;
-    correctWord: string, 
+    correctWord: string;
     setCorrectWord: Dispatch<SetStateAction<string>>;
 }
 
@@ -56,21 +56,24 @@ export const Home = () => {
     const [gameOver, setGameOver] = useState<GuessType>({gameOver: false, guessedWord: false});
     const [correctWord, setCorrectWord] = useState<string>("");
     
-    const onReset = () => {
-        setBoard(boardDefault);
-        setCurrAttempt({attempt: 0, letterPos: 0});
-        setDisabledLetters([]);
-        setGameOver({gameOver: false, guessedWord: false});
-    }
-
+    
     useEffect(() => {
         generateWordsSet().then((words) => {
             setWordSet(words.wordSet);
             setCorrectWord(words.todaysWord.toUpperCase());
         })
     }, [])
-
-
+    
+    
+    const onReset = () => {
+        const newBoard: string[][] = boardSkeleton.map(innerArray => [...innerArray]);
+        console.log(boardSkeleton.map(innerArray => [...innerArray]));
+        setBoard(newBoard);
+        setCurrAttempt({attempt: 0, letterPos: 0});
+        setDisabledLetters([]);
+        setGameOver({gameOver: false, guessedWord: false});
+        setCorrectWord(RandomWord);
+    }
     const onSelectKey = (keyVal: string) => {
         if(currAttempt.letterPos > 4) return;
         const newBoard = [...board];
@@ -116,7 +119,8 @@ export const Home = () => {
             <AppContext.Provider value={{board, setBoard, currAttempt, setCurrAttempt, onSelectKey: onSelectKey, onDelete, onEnter, setDisabledLetters, disabledLetters, gameOver, setGameOver, correctWord, setCorrectWord, onReset}}>
             <div className="game">
                 <Board />
-                {gameOver.gameOver ? <GameOver/> : <Keyboard />}
+                <Keyboard />
+                {gameOver.gameOver && <GameOver/>}                
             </div>
             </AppContext.Provider>
         </div>

@@ -64,7 +64,12 @@ button {
   font-weight: bold;
   color: #282828;
 }
+
 .title{
+  display: flex;
+  width: 33%;
+  text-align: center;
+  justify-content: center;
   margin: 0 auto;
 }
 .title a{
@@ -72,30 +77,37 @@ button {
   color: #F5F5F5;
   text-decoration: none;
   font-size: 35px;
+  text-shadow: 5px 5px 5px #171717;
 }
 
-.navbar .links {
-  text-align: center;
-  margin-left: 50px;
-}
 
-.links a {
-  color: #F5F5F5;
-  text-decoration: none;
-  border-bottom: 3px solid #F5F5F5;
-  padding-bottom: 2px;
-  margin: 10px;
-}
 
-.navbar .user{
+.logo {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 50px;
+  width: 33%;
+  justify-content: left;
+  /* margin-right: auto; */
+  margin: 0 auto 0 10px;
+
 }
+
+.logo img {
+  width: 50px;
+  height: 50px;
+  border-radius: 13%;
+
+}
+.user{
+  display: flex;
+  width: 33%;
+  justify-content: right;
+  align-items: center;
+  margin: 0 10px 0 auto ;
+}
+
 
 .user p{
-  font-size: 15px;
+  font-size: 20px;
   margin-right: 10px;
   color: #F5F5F5;
 }
@@ -199,3 +211,4 @@ button {
 #disabled {
   background-color: #3a393c;
 }
+
